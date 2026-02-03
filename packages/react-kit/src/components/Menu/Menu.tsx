@@ -28,7 +28,7 @@ export type TMenuChildProps = {
 export type TFullMenuProps = TFullListProps & {
 	List: ComponentType<TListProps>;
 	onItemSelect?: (value: ReactText) => void;
-	children: ReactChildren<ReactElement<TMenuChildProps>>;
+	children?: ReactChildren<ReactElement<TMenuChildProps>>;
 };
 
 class RawMenu extends React.Component<TFullMenuProps> {
@@ -104,6 +104,7 @@ export type TFullMenuItemGroupProps = TFullListItemGroupProps & {
 	theme: {
 		itemGroup__header__content?: string;
 	};
+	children?: ReactNode;
 	ListItemGroup: ComponentType<TListItemGroupProps>;
 	List: ComponentType<TListProps>;
 	onSelect?: (value: ReactText) => void; //this is injected by Menu/MenuItemGroup

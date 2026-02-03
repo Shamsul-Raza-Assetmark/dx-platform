@@ -22,7 +22,7 @@ export type TNumericStepperOwnProps = TSteppableInputProps &
 	};
 
 export type TNumericStepperFullProps = TNumericStepperOwnProps & {
-	SteppableInput: React.ComponentClass<TSteppableInputProps> | React.SFC<TSteppableInputProps>;
+	SteppableInput: React.ComponentClass<TSteppableInputProps> | React.FC<TSteppableInputProps>;
 	theme: {
 		SteppableInput?: TSteppableInputProps['theme'];
 		Input?: TInputProps['theme'];

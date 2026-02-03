@@ -183,6 +183,7 @@ export type TThemeProviderProps = {
 	theme: {
 		[key: string]: TTheme;
 	};
+	children?: React.ReactNode;
 };
 
 export class ThemeProvider extends React.Component<TThemeProviderProps> {

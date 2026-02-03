@@ -15,7 +15,7 @@ export type TFullListProps = {
 	theme: {
 		container?: string;
 	};
-	children: ReactNode;
+	children?: ReactNode;
 	level?: number;
 };
 
@@ -65,7 +65,7 @@ export const ListItem: ComponentClass<TListItemProps> = withTheme(LIST)(RawListI
 
 export type TFullListItemGroupProps = {
 	isCollapsed?: boolean;
-	children: ReactNode;
+	children?: ReactNode;
 	header?: ReactNode;
 	theme: {
 		itemGroup?: string;

@@ -122,7 +122,7 @@ type TRootItemProps<P extends TMinimumLayoutModelItemProps> = {
 	itemPropsFactory: (data: unknown) => P;
 	ItemComponent: any;
 
-	Placeholder: React.ComponentClass<TPlaceholderProps> | React.SFC<TPlaceholderProps>;
+	Placeholder: React.ComponentClass<TPlaceholderProps> | React.FC<TPlaceholderProps>;
 };
 
 type TDraggableItemProps<P extends TMinimumLayoutModelItemProps> = TRootItemProps<P> & {
@@ -883,7 +883,7 @@ type TOwnLayoutProps<P extends TMinimumLayoutModelItemProps> = {
 
 type TDefaultLayoutProps<P extends TMinimumLayoutModelItemProps> = {
 	Scrollable: React.ComponentClass<any>;
-	Placeholder: React.ComponentClass<TPlaceholderProps> | React.SFC<TPlaceholderProps>;
+	Placeholder: React.ComponentClass<TPlaceholderProps> | React.FC<TPlaceholderProps>;
 	itemPropsFactory: (data: unknown) => P;
 	resizeHandlerSize: number;
 	minItemWidth: number;

@@ -34,7 +34,7 @@ type TSize = {
 export const POPOVER = Symbol('Popover') as symbol;
 
 export type TFullPopoverProps = {
-	children: ReactNode;
+	children?: ReactNode;
 	isOpened?: boolean;
 	closeOnClickAway?: boolean;
 	disableCloseOnScroll?: boolean;

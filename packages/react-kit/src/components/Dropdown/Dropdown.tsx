@@ -21,6 +21,7 @@ export type TFullDropdownProps = TControlProps<boolean | undefined, 'isOpened', 
 	theme: {
 		Popover?: TPopoverProps['theme'];
 	};
+	children?: React.ReactNode;
 	hasArrow?: boolean;
 };
 

@@ -19,7 +19,7 @@ export type TToggleButtonsChildProps = {
 };
 
 export type TFullToggleButtonsProps = {
-	children: ReactElement<TToggleButtonsChildProps>[];
+	children?: ReactElement<TToggleButtonsChildProps>[];
 	isDisabled?: boolean;
 	isVertical?: boolean;
 	toggleIndex?: number;

@@ -10,7 +10,7 @@ export type THoldableChildProps = {
 };
 
 export type TFullHoldableProps = {
-	children: ReactElement<THoldableChildProps>;
+	children?: ReactElement<THoldableChildProps>;
 	onHold: Function;
 	delay: number;
 	interval: number;
