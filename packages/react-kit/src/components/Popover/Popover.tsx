@@ -171,7 +171,7 @@ class RawPopover extends React.Component<TFullPopoverProps, TPopoverState> {
 				{
 					[theme.container_hasArrow as string]: hasArrow,
 				},
-				[getPlacementModifier(finalPlacement)].map(mod => theme[`container_${mod}`]),
+				[getPlacementModifier(finalPlacement)].map(mod => (theme as any)[`container_${mod}`]),
 			);
 		}
 		style = {

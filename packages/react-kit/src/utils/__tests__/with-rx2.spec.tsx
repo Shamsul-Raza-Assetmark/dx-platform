@@ -1,6 +1,7 @@
 import { PureComponent, SFC } from 'react';
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, screen, cleanup } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { withRX } from '../with-rx2';
 import { Subject } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
@@ -13,6 +14,7 @@ describe('withRX2', () => {
 	});
 	afterEach(() => {
 		scheduler.flush();
+		cleanup();
 	});
 
 	type FooProps = {
@@ -37,10 +39,9 @@ describe('withRX2', () => {
 			}),
 			{ scheduler },
 		);
-		const foo = mount(<FooContainer foo={'initial'} />);
+		render(<FooContainer foo={'initial'} />);
 		scheduler.expectObservable(result$).toBe(timeline.res);
 		scheduler.flush();
-		foo.unmount();
 	});
 	it('should pass handlers', () => {
 		type Props = { foo: string; handler: (arg: string) => void };
@@ -51,17 +52,17 @@ describe('withRX2', () => {
 		}
 		const handler = jest.fn();
 		const FooContainer = withRX(Foo)(() => ({ defaultProps: { handler } }));
-		const foo = mount(<FooContainer foo={'test'} />);
-		foo.find('#id').simulate('click');
+		const { container } = render(<FooContainer foo={'test'} />);
+		const div = container.querySelector('#id')!;
+		userEvent.click(div);
 		expect(handler).toHaveBeenCalledWith('test');
-		foo.unmount();
 	});
 	it('should pass defaultValues', () => {
 		const Foo: SFC<FooProps> = props => <div id={'foo'}>{props.foo}</div>;
 		const FooContainer = withRX(Foo)(() => ({ defaultProps: { foo: 'default' } }));
-		const foo = mount(<FooContainer />);
-		expect(foo.find('#foo').text()).toBe('default');
-		foo.unmount();
+		const { container } = render(<FooContainer />);
+		const fooDiv = container.querySelector('#foo')!;
+		expect(fooDiv.textContent).toBe('default');
 	});
 	it('should immediately unsubscribe on unmount', () => {
 		const Foo: SFC<FooProps> = props => <div id={'foo'}>{props.foo}</div>;
@@ -74,8 +75,8 @@ describe('withRX2', () => {
 			}),
 			{ scheduler },
 		);
-		const foo = mount(<FooContainer foo={'initial'} />);
-		foo.unmount();
+		const { unmount } = render(<FooContainer foo={'initial'} />);
+		unmount();
 		scheduler.expectSubscriptions(foo$.subscriptions).toBe('(^!)');
 	});
 	it('should run effects', () => {
@@ -92,17 +93,16 @@ describe('withRX2', () => {
 
 			{ scheduler },
 		);
-		const foo = mount(<FooContainer />);
+		render(<FooContainer />);
 		scheduler.expectObservable(effects$).toBe(timeline.res);
 		scheduler.flush();
-		foo.unmount();
 	});
 	it('should immediately unsubscribe from effects on unmount', () => {
 		const Foo = () => <div />;
 		const effects$ = scheduler.createColdObservable('-a-b-|');
 		const FooContainer = withRX(Foo)(() => ({ effects$ }), { scheduler });
-		const foo = mount(<FooContainer />);
-		foo.unmount();
+		const { unmount } = render(<FooContainer />);
+		unmount();
 		scheduler.expectSubscriptions(effects$.subscriptions).toBe('(^!)');
 	});
 	it('should typecheck', () => {

@@ -114,10 +114,10 @@ class RawButton extends React.Component<TFullButtonProps> {
 				onDragStart={onDragStart}
 				onDrop={onDrop}
 				onClick={onClick}
-				onTouchCancel={onTouchCancel}
-				onTouchEnd={onTouchEnd}
-				onTouchMove={onTouchMove}
-				onTouchStart={onTouchStart}
+				onTouchCancel={onTouchCancel as any}
+				onTouchEnd={onTouchEnd as any}
+				onTouchMove={onTouchMove as any}
+				onTouchStart={onTouchStart as any}
 				type={type}
 				style={style}
 				tabIndex={tabIndex}

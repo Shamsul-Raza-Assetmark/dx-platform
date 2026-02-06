@@ -23,9 +23,9 @@ class RawList extends React.Component<TFullListProps> {
 	static contextTypes = CONTEXT_TYPES;
 
 	render() {
-		const level = this.context[CONTEXT_LEVEL_KEY] || 0;
+		const level = (this.context as any)[CONTEXT_LEVEL_KEY] || 0;
 		const { theme, children } = this.props;
-		const className = classnames(theme.container, theme[`container_level_${level}`]);
+		const className = classnames(theme.container, (theme as any)[`container_level_${level}`]);
 
 		return <ul className={className}>{children}</ul>;
 	}
@@ -49,8 +49,8 @@ class RawListItem extends React.Component<TFullListItemProps> {
 
 	render() {
 		const { theme, onClick, children } = this.props;
-		const level = this.context[CONTEXT_LEVEL_KEY] || 0;
-		const className = classnames(theme.item, theme[`item_level_${level}`]);
+		const level = (this.context as any)[CONTEXT_LEVEL_KEY] || 0;
+		const className = classnames(theme.item, (theme as any)[`item_level_${level}`]);
 
 		return (
 			<li className={className} onClick={onClick}>
@@ -86,14 +86,14 @@ class RawListItemGroup extends React.Component<TFullListItemGroupProps> {
 
 	getChildContext() {
 		return {
-			[CONTEXT_LEVEL_KEY]: (this.context[CONTEXT_LEVEL_KEY] || 0) + 1,
+			[CONTEXT_LEVEL_KEY]: ((this.context as any)[CONTEXT_LEVEL_KEY] || 0) + 1,
 		};
 	}
 
 	render() {
 		const { theme, isCollapsed, children, header, onClick } = this.props;
-		const level = this.context[CONTEXT_LEVEL_KEY] || 0;
-		const className = classnames(theme.itemGroup, theme[`itemGroup_level_${level}`], {
+		const level = (this.context as any)[CONTEXT_LEVEL_KEY] || 0;
+		const className = classnames(theme.itemGroup, (theme as any)[`itemGroup_level_${level}`], {
 			[theme.itemGroup_isCollapsed as string]: isCollapsed,
 		});
 

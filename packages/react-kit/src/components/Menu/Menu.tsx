@@ -36,7 +36,7 @@ class RawMenu extends React.Component<TFullMenuProps> {
 		const { children, List } = this.props;
 		return (
 			<List {...this.props}>
-				{React.Children.map(children, child => {
+				{children && React.Children.map(children, child => {
 					if (!React.isValidElement<TMenuChildProps>(child)) {
 						return child;
 					}

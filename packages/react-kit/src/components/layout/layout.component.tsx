@@ -147,7 +147,7 @@ type TNestedItemProps<P extends TMinimumLayoutModelItemProps> = TRootItemProps<P
 
 type TFullItemProps<P extends TMinimumLayoutModelItemProps> = TDraggableItemProps<P> & TNestedItemProps<P>;
 
-class RawItemWithNode extends React.Component<{}, {}> {
+class RawItemWithNode extends React.Component<{ children?: React.ReactElement }, {}> {
 	state: any = {};
 
 	componentDidMount() {
@@ -181,8 +181,8 @@ class RawItem<P extends TMinimumLayoutModelItemProps> extends React.Component<TF
 
 	shouldComponentUpdate(newProps: any, newState: TItemState) {
 		//now we need to remove theme object from original props to avoid checking by shouldComponentUpdate
-		const thisPropsCopy = { ...this.props };
-		const newPropsCopy = Object.assign({}, newProps);
+		const thisPropsCopy = { ...this.props } as any;
+		const newPropsCopy = Object.assign({}, newProps) as any;
 
 		delete thisPropsCopy['theme'];
 		delete newPropsCopy['theme'];
@@ -786,9 +786,9 @@ const itemTarget: DropTargetSpec<TFullItemProps<TMinimumLayoutModelItemProps>> =
 		);
 		if (typeof placement.side !== 'undefined' && placement.fits) {
 			if (monitor.getItemType() === NativeTypes.TEXT) {
-				let data: object | undefined = undefined;
+				let data: any | undefined = undefined;
 				try {
-					data = JSON.parse(monitor.getItem()['text']);
+					data = JSON.parse((monitor.getItem() as any)['text']);
 				} catch (e) {}
 				if (data) {
 					if (typeof data[NATIVE_DRAG_DATA_KEY] !== 'undefined') {
