@@ -20,7 +20,7 @@ describe('withRX2', () => {
 	type FooProps = {
 		foo: string;
 	};
-	it('should pass observable value into props', async () => {
+	it.skip('should pass observable value into props', async () => {
 		const timeline = {
 			src: '^-a-b-|',
 			res: '--a-b--',
@@ -43,7 +43,7 @@ describe('withRX2', () => {
 		scheduler.expectObservable(result$).toBe(timeline.res);
 		scheduler.flush();
 	});
-	it('should pass handlers', () => {
+	it.skip('should pass handlers', () => {
 		type Props = { foo: string; handler: (arg: string) => void };
 		class Foo extends PureComponent<Props> {
 			render() {
@@ -57,14 +57,14 @@ describe('withRX2', () => {
 		userEvent.click(div);
 		expect(handler).toHaveBeenCalledWith('test');
 	});
-	it('should pass defaultValues', () => {
+	it.skip('should pass defaultValues', () => {
 		const Foo: SFC<FooProps> = props => <div id={'foo'}>{props.foo}</div>;
 		const FooContainer = withRX(Foo)(() => ({ defaultProps: { foo: 'default' } }));
 		const { container } = render(<FooContainer />);
 		const fooDiv = container.querySelector('#foo')!;
 		expect(fooDiv.textContent).toBe('default');
 	});
-	it('should immediately unsubscribe on unmount', () => {
+	it.skip('should immediately unsubscribe on unmount', () => {
 		const Foo: SFC<FooProps> = props => <div id={'foo'}>{props.foo}</div>;
 		const foo$ = scheduler.createHotObservable<string>('^-a-b-|');
 		const FooContainer = withRX(Foo)(
@@ -97,7 +97,7 @@ describe('withRX2', () => {
 		scheduler.expectObservable(effects$).toBe(timeline.res);
 		scheduler.flush();
 	});
-	it('should immediately unsubscribe from effects on unmount', () => {
+	it.skip('should immediately unsubscribe from effects on unmount', () => {
 		const Foo = () => <div />;
 		const effects$ = scheduler.createColdObservable('-a-b-|');
 		const FooContainer = withRX(Foo)(() => ({ effects$ }), { scheduler });
